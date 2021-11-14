@@ -1,13 +1,17 @@
 import React from 'react';
 import Todo from './Todo';
+import {ITodo} from '../models/ITodo';
 
-const TodoList: React.FC = () => {
-  const todoList = ['Call Benny', 'Build react demo', 'Take rest'];
+interface IProps  {
+  todoCollection: any
+}
+
+const TodoList: React.FC<IProps> = ({todoCollection}) => {
   return (
     <ul>
-      {todoList.map((text, index) =>
-        <li key={index}>
-          <Todo text={text}/>
+      {todoCollection.map((todo: ITodo) =>
+        <li key={todo.id}>
+          <Todo text={todo.text}/>
         </li>
       )}
     </ul>
