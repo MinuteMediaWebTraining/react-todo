@@ -3,18 +3,17 @@ import './App.css';
 import Header from './components/Header';
 import TodoList from './components/TodoList';
 import {ITodo} from './models/ITodo';
+import { createId } from './utils/idGenerator';
 
 interface IState {
   todoCollection: Array<ITodo>
 }
 
-const createId = (): string => (
-  Math.random().toString(36).substring(2) + (new Date()).getTime().toString(36)
-);
+
 
 class App extends React.Component<{}, IState> {
-  constructor() {
-    super({});
+  constructor(props = {}) {
+    super(props);
     
     this.state = {
       todoCollection: [
