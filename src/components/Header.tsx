@@ -1,12 +1,15 @@
 import React, { SyntheticEvent } from 'react';
+import { ViewFilterMode } from '../models/ViewFilterMode';
 import './Header.css';
 
 interface IProps {
-	onAdd: Function;
+	onAdd: (value: string) => void;
+	onViewFilterChange: (newValue: ViewFilterMode) => void;
 }
 
 interface IState {
 	value: string;
+	viewFilterValue: ViewFilterMode;
 	buttonEnabled: boolean;
 }
 
@@ -15,6 +18,7 @@ class Header extends React.Component<IProps, IState> {
 		super(props);
 		this.state = {
 			value: '',
+			viewFilterValue: ViewFilterMode.All,
 			buttonEnabled: false,
 		};
 	}
@@ -25,8 +29,15 @@ class Header extends React.Component<IProps, IState> {
 			buttonEnabled: false,
 		});
 	}
+	handleViewChange = (event: SyntheticEvent) => {
+		const value = parseInt((event.target as HTMLSelectElement).value);
+		this.setState({
+			viewFilterValue: value,
+		});
+		this.props.onViewFilterChange(value);
+	};
 
-	handleChange = (event: SyntheticEvent) => {
+	handleInputChange = (event: SyntheticEvent) => {
 		const value = (event.target as HTMLInputElement).value;
 		this.setState({
 			value,
@@ -43,12 +54,28 @@ class Header extends React.Component<IProps, IState> {
 
 	render(): React.ReactElement {
 		return (
-			<header className='header'>
+			<header className="header">
 				<h1>My Todo list</h1>
-				<input value={this.state.value} onChange={this.handleChange} />
-				<button onClick={this.handleClick} disabled={!this.state.buttonEnabled}>
-					Add
-				</button>
+				<div className="header-new-item">
+					<input value={this.state.value} onChange={this.handleInputChange} />
+					<button
+						onClick={this.handleClick}
+						disabled={!this.state.buttonEnabled}
+					>
+						Add
+					</button>
+				</div>
+				<div>
+					<label htmlFor="view-selector">View</label>
+					<select
+						id="view-selector"
+						value={this.state.viewFilterValue}
+						onChange={this.handleViewChange}
+					>
+						<option value={ViewFilterMode.All}>All</option>
+						<option value={ViewFilterMode.Completed}>Completed</option>
+					</select>
+				</div>
 			</header>
 		);
 	}

@@ -3,9 +3,11 @@ import './App.css';
 import Header from './components/Header';
 import TodoList from './components/TodoList';
 import { ITodo } from './models/ITodo';
+import { ViewFilterMode } from './models/ViewFilterMode';
 import { createId } from './utils/idGenerator';
 
 interface IState {
+	viewFilter: ViewFilterMode;
 	todoCollection: Array<ITodo>;
 }
 
@@ -14,6 +16,7 @@ class App extends React.Component<{}, IState> {
 		super(props);
 
 		this.state = {
+			viewFilter: ViewFilterMode.All,
 			todoCollection: [
 				{ id: createId(), text: 'Call Benny', completed: true },
 				{ id: createId(), text: 'Build react demo', completed: false },
@@ -21,6 +24,12 @@ class App extends React.Component<{}, IState> {
 			],
 		};
 	}
+
+	onViewFilterChange = (newValue: ViewFilterMode) => {
+		this.setState({
+			viewFilter: newValue,
+		});
+	};
 
 	onAdd = (value: string) => {
 		const newTodo = { id: createId(), text: value, completed: false };
@@ -45,11 +54,33 @@ class App extends React.Component<{}, IState> {
 		});
 	};
 
+	getFilteredTodoList(): Array<ITodo> {
+		let todoList = this.state.todoCollection;
+
+		switch (this.state.viewFilter) {
+			case ViewFilterMode.All:
+				break;
+
+			case ViewFilterMode.Completed:
+				todoList = this.state.todoCollection.filter(
+					(todo: ITodo) => todo.completed
+				);
+				break;
+
+			default:
+				break;
+		}
+		return todoList;
+	}
+
 	render() {
 		return (
 			<div className='App'>
-				<Header onAdd={this.onAdd} />
-        <TodoList todoCollection={this.state.todoCollection} onCompletedToggle={this.onCompletedToggle}/>
+        <Header onAdd={this.onAdd} onViewFilterChange={this.onViewFilterChange}/>
+				<TodoList
+					todoCollection={this.getFilteredTodoList()}
+					onCompletedToggle={this.onCompletedToggle}
+				/>
 			</div>
 		);
 	}
