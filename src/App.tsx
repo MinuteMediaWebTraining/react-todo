@@ -25,7 +25,10 @@ class App extends React.Component<{}, IState> {
   }
   
   onAdd = (value: string) => {
-    console.log(value);
+    const newTodo = {id: createId(), text: value};
+    this.setState({
+        todoCollection: [...this.state.todoCollection, newTodo]
+    })
   };
   
   render () {

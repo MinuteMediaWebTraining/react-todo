@@ -19,6 +19,13 @@ class Header extends React.Component<IProps, IState> {
     };
   }
   
+  clear() {
+    this.setState({
+      value: '',
+      buttonEnabled: false
+    });
+  }
+
   handleChange = (event: SyntheticEvent) => {
     const value = (event.target as HTMLInputElement).value;
     this.setState({
@@ -27,10 +34,10 @@ class Header extends React.Component<IProps, IState> {
     });
   };
   
-  handleClick = (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
+  handleClick = () => {
     if(this.state.buttonEnabled) {
       this.props.onAdd(this.state.value)
+      this.clear();
     }
   };
   
