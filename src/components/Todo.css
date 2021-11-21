@@ -1,0 +1,7 @@
+.todo {
+  display: flex;
+  align-items: center;
+}
+.todo-content {
+  flex: 1;
+}

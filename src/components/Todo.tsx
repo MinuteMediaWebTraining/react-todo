@@ -1,4 +1,6 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
+import './Todo.css';
 
 interface IProps {
   id: string
@@ -13,11 +15,12 @@ const Todo: React.FC<IProps> = ({id, text, completed, onCompletedToggle}) => {
   }
   
   return (
-    <div>
+    <div className="todo">
       <input checked={completed} type="checkbox" onChange={onChange}/>
-      <span>
+      <span className="todo-content">
         {text}
       </span>
+      <NavLink to={id}>details</NavLink>
     </div>
   );
 };
