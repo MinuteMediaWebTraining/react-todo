@@ -23,7 +23,6 @@ const App: React.FC = () => {
 		setTodoCollection([...todoCollection, newTodo]);
 	};
 
-	// const onViewFilterChange = () => {};
 	const getFilteredTodoList = () => {
 		let todoList = todoCollection;
 
