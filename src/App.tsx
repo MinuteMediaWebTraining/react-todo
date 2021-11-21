@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import Header from './components/Header';
+import Main from './components/Main';
+import NavBar from './components/NavBar';
 import TodoList from './components/TodoList';
 import { ITodo } from './models/ITodo';
 import { ViewFilterMode } from './models/ViewFilterMode';
@@ -51,7 +53,8 @@ const App: React.FC = () => {
 	};
 
 	return (
-		<div className="App">
+		<Main>
+			<NavBar />
 			<Header
 				onAdd={onAdd}
 				viewFilter={viewFilter}
@@ -61,7 +64,7 @@ const App: React.FC = () => {
 				todoCollection={getFilteredTodoList()}
 				onCompletedToggle={onCompletedToggle}
 			/>
-		</div>
+		</Main>
 	);
 };
 
