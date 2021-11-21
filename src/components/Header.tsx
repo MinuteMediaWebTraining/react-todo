@@ -5,19 +5,18 @@ import './Header.css';
 
 interface IProps {
 	onAdd: (value: string) => void;
+	viewFilter: ViewFilterMode;
 	onViewFilterChange: (newValue: ViewFilterMode) => void;
 }
 
 
-const Header: React.FC<IProps> = ({ onAdd, onViewFilterChange }) => {
+const Header: React.FC<IProps> = ({ onAdd, viewFilter, onViewFilterChange }) => {
 	const [buttonEnabled, setButtonEnabled] = useState(false);
-	const [viewFilterValue, setViewFilterValue] = useState(ViewFilterMode.All);
 	const updateButtonByInput = (newValue: string) => setButtonEnabled(newValue.length > 0)
 	const newItem = useFormInput('', updateButtonByInput);
 
 	const handleViewChange =(event: ChangeEvent<HTMLSelectElement>) => {
 		const value = parseInt(event.target.value);
-		setViewFilterValue(value);
 		onViewFilterChange(value);
 	}
 
@@ -46,7 +45,7 @@ const Header: React.FC<IProps> = ({ onAdd, onViewFilterChange }) => {
 				<label htmlFor="view-selector">View</label>
 				<select
 					id="view-selector"
-					value={viewFilterValue}
+					value={viewFilter}
 					onChange={handleViewChange}
 				>
 					<option value={ViewFilterMode.All}>All</option>
