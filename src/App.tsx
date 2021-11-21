@@ -17,12 +17,18 @@ class App extends React.Component<{}, IState> {
 
 		this.state = {
 			viewFilter: ViewFilterMode.All,
-			todoCollection: [
-				{ id: createId(), text: 'Call Benny', completed: true },
-				{ id: createId(), text: 'Build react demo', completed: false },
-				{ id: createId(), text: 'Take rest', completed: false },
-			],
+			todoCollection: [],
 		};
+	}
+
+	componentDidMount() {
+		fetch('todo.json')
+			.then((response) => response.json())
+			.then((items) => {
+				this.setState({
+					todoCollection: items,
+				});
+			});
 	}
 
 	onViewFilterChange = (newValue: ViewFilterMode) => {
@@ -75,8 +81,11 @@ class App extends React.Component<{}, IState> {
 
 	render() {
 		return (
-			<div className='App'>
-        <Header onAdd={this.onAdd} onViewFilterChange={this.onViewFilterChange}/>
+			<div className="App">
+				<Header
+					onAdd={this.onAdd}
+					onViewFilterChange={this.onViewFilterChange}
+				/>
 				<TodoList
 					todoCollection={this.getFilteredTodoList()}
 					onCompletedToggle={this.onCompletedToggle}
