@@ -8,6 +8,7 @@ import { createId } from './utils/idGenerator';
 
 interface IState {
 	viewFilter: ViewFilterMode;
+	loaded: boolean;
 	todoCollection: Array<ITodo>;
 }
 
@@ -17,18 +18,21 @@ class App extends React.Component<{}, IState> {
 
 		this.state = {
 			viewFilter: ViewFilterMode.All,
+			loaded: false,
 			todoCollection: [],
 		};
 	}
 
 	componentDidMount() {
-		fetch('todo.json')
-			.then((response) => response.json())
-			.then((items) => {
-				this.setState({
-					todoCollection: items,
-				});
+		const getPosts = async() => {
+			const response = await fetch('todo.json')
+			const items = await response.json();
+			this.setState({
+				todoCollection: items,
+				loaded: true,
 			});
+		}
+		getPosts();
 	}
 
 	onViewFilterChange = (newValue: ViewFilterMode) => {
@@ -79,17 +83,26 @@ class App extends React.Component<{}, IState> {
 		return todoList;
 	}
 
+
 	render() {
+		const { loaded } = this.state;
+		let content = <div>Loading...</div>
+		if(loaded) {
+			content = (
+				<TodoList
+					todoCollection={this.getFilteredTodoList()}
+					onCompletedToggle={this.onCompletedToggle}
+				/>
+			);
+		}
+
 		return (
 			<div className="App">
 				<Header
 					onAdd={this.onAdd}
 					onViewFilterChange={this.onViewFilterChange}
 				/>
-				<TodoList
-					todoCollection={this.getFilteredTodoList()}
-					onCompletedToggle={this.onCompletedToggle}
-				/>
+				{content}
 			</div>
 		);
 	}
