@@ -1,8 +1,8 @@
-import React from 'react';
-import './Main.css';
+import styled from '@emotion/styled'
 
-const Main: React.FC = ({ children }) => {
-	return <main className="main">{children}</main>;
-};
+export const Main = styled.main`
+  	max-width: 300px;
+	margin: auto;
+`
 
 export default Main;
