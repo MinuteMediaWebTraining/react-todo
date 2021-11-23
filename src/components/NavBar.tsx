@@ -8,7 +8,7 @@ const getActiveClass = ({ isActive }: { isActive: boolean }): string =>
 const NavBar: React.FC = () => {
 	return (
 		<nav>
-			<NavLink to="/" className={getActiveClass}>
+			<NavLink to="/todo" className={getActiveClass}>
 				Home
 			</NavLink>
 			{' '}|{' '}
