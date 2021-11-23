@@ -5,18 +5,19 @@ import { Button } from './Button';
 import { Textbox } from './Textbox';
 // this comment tells babel to convert jsx to calls to a function called jsx instead of React.createElement
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react'
+import { css } from '@emotion/react';
 
-import './Header.css';
-
-
+const headerStyles = css`
+	padding: 20px;
+	text-align: start;
+`;
 const newItemStyles = css`
 	display: flex;
 	margin-bottom: 10px;
-	>:last-child {
+	> :last-child {
 		margin-left: 10px;
 	}
-`
+`;
 
 interface IProps {
 	onAdd: (value: string) => void;
@@ -24,21 +25,25 @@ interface IProps {
 	onViewFilterChange: (newValue: ViewFilterMode) => void;
 }
 
-
-const Header: React.FC<IProps> = ({ onAdd, viewFilter, onViewFilterChange }) => {
+const Header: React.FC<IProps> = ({
+	onAdd,
+	viewFilter,
+	onViewFilterChange,
+}) => {
 	const [buttonEnabled, setButtonEnabled] = useState(false);
-	const updateButtonByInput = (newValue: string) => setButtonEnabled(newValue.length > 0)
+	const updateButtonByInput = (newValue: string) =>
+		setButtonEnabled(newValue.length > 0);
 	const newItem = useFormInput('', updateButtonByInput);
 
-	const handleViewChange =(event: ChangeEvent<HTMLSelectElement>) => {
+	const handleViewChange = (event: ChangeEvent<HTMLSelectElement>) => {
 		const value = parseInt(event.target.value);
 		onViewFilterChange(value);
-	}
+	};
 
 	const clear = () => {
 		setButtonEnabled(false);
 		newItem.onChange('');
-	}
+	};
 
 	const onAddClicked = () => {
 		if (buttonEnabled) {
@@ -48,7 +53,7 @@ const Header: React.FC<IProps> = ({ onAdd, viewFilter, onViewFilterChange }) => 
 	};
 
 	return (
-		<header className="header">
+		<header css={headerStyles}>
 			<h1>My Todo list</h1>
 			<div css={newItemStyles}>
 				<Textbox {...newItem} />
