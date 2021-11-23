@@ -7,18 +7,24 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import About from './components/About';
 import TodoDashboard from './components/TodoDashboard';
 import TodoDetails from './components/TodoDetails';
+import { Provider } from 'react-redux';
+import store from './store';
 
 ReactDOM.render(
-	<BrowserRouter>
-		<Routes>
-			<Route path="about" element={<About />} />
-			<Route path="todo" element={<App />}>
-				<Route index element={<TodoDashboard />} />
-				<Route path=":id" element={<TodoDetails />} />
-			</Route>
-			<Route path="/" element={<Navigate to="todo" />} />
-		</Routes>
-	</BrowserRouter>,
+	<React.StrictMode>
+		<Provider store={store}>
+			<BrowserRouter>
+				<Routes>
+					<Route path="about" element={<About />} />
+					<Route path="todo" element={<App />}>
+						<Route index element={<TodoDashboard />} />
+						<Route path=":id" element={<TodoDetails />} />
+					</Route>
+					<Route path="/" element={<Navigate to="todo" />} />
+				</Routes>
+			</BrowserRouter>
+		</Provider>
+	</React.StrictMode>,
 	document.getElementById('root')
 );
 

@@ -1,9 +1,14 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
+import { RootState } from '../store';
 import { globals } from './TodoDashboard';
 
 const TodoDetails: React.FC = () => {
 	const params = useParams();
+	const todoCollection = useSelector<RootState>((state) => state.todo.items);
+	console.log(todoCollection);
+
 	const todo = globals.tempTodoHolder.find((todo) => todo.id === params.id);
 
 	if (!todo) {
