@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { ITodo } from '../models/ITodo';
 
 export const todoSlice = createSlice({
 	name: 'todo',
@@ -9,7 +10,7 @@ export const todoSlice = createSlice({
 		],
 	},
 	reducers: {
-		add: (state, action) => {
+		add: (state, action: PayloadAction<ITodo>) => {
 			// Redux Toolkit allows us to write "mutating" logic in reducers. It
 			// doesn't actually mutate the state because it uses the Immer library,
 			// which detects changes to a "draft state" and produces a brand new
