@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export const todoSlice = createSlice({
 	name: 'todo',
@@ -16,7 +16,7 @@ export const todoSlice = createSlice({
 			// immutable state based off those changes
 			state.items.push(action.payload);
 		},
-    toggleCompleted: (state, action) => {
+    toggleCompleted: (state, action: PayloadAction<string>) => {
       const todo = state.items.find(item => item.id === action.payload);
       if(todo) {
         todo.completed = !todo.completed;
