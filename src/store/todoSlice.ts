@@ -17,7 +17,7 @@ export const todoSlice = createSlice({
 			state.items.push(action.payload);
 		},
     toggleCompleted: (state, action) => {
-      const todo = state.items.find(action.payload);
+      const todo = state.items.find(item => item.id === action.payload);
       if(todo) {
         todo.completed = !todo.completed;
       }
