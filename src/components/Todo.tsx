@@ -11,7 +11,7 @@ interface IProps {
 
 const Todo: React.FC<IProps> = ({id, text, completed, onCompletedToggle}) => {
   function onChange() {
-    onCompletedToggle(id, !completed);
+    onCompletedToggle(id);
   }
   
   return (

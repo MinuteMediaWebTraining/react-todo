@@ -4,7 +4,7 @@ import {ITodo} from '../models/ITodo';
 
 interface IProps  {
   todoCollection: ITodo[];
-  onCompletedToggle: (id: string, completed: boolean) => void;
+  onCompletedToggle: (id: string) => void;
 }
 
 const TodoList: React.FC<IProps> = ({todoCollection, onCompletedToggle}) => {

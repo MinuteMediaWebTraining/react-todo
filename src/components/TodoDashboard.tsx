@@ -4,33 +4,26 @@ import TodoList from './TodoList';
 import { ITodo } from '../models/ITodo';
 import { ViewFilterMode } from '../models/ViewFilterMode';
 import { createId } from '../utils/idGenerator';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { add, toggleCompleted } from '../store/todoSlice';
 
-// temp solution for passing data
-// cannot share data effectively (no loading flag, use for read only)
-interface IGlobals {
-  tempTodoHolder: Array<ITodo>
-}
-
-export const globals:IGlobals =  {
-  tempTodoHolder: []
-}
 
 const TodoDashboard: React.FC = () => {
 	const [viewFilter, setViewFilter] = useState(ViewFilterMode.All);
-	const [todoCollection, setTodoCollection] = useState<Array<ITodo>>([]);
-  globals.tempTodoHolder = todoCollection;
+	const todoCollection = useAppSelector((state) => state.todo.items);
+	const dispatch = useAppDispatch()
 
 	useEffect(() => {
-		fetch('todo.json')
-			.then((response) => response.json())
-			.then((items) => {
-				setTodoCollection(items);
-			});
+	// 	fetch('todo.json')
+	// 		.then((response) => response.json())
+	// 		.then((items) => {
+	// 			setTodoCollection(items);
+	// 		});
 	}, []);
 
 	const onAdd = (value: string) => {
 		const newTodo = { id: createId(), text: value, completed: false };
-		setTodoCollection([...todoCollection, newTodo]);
+		dispatch(add(newTodo))
 	};
 
 	const getFilteredTodoList = () => {
@@ -50,14 +43,8 @@ const TodoDashboard: React.FC = () => {
 		return todoList;
 	};
 
-	const onCompletedToggle = (id: string, completed: boolean) => {
-		const todo = todoCollection.find((todo: ITodo) => todo.id === id);
-		if (todo) {
-			todo.completed = completed;
-		} else {
-			throw new Error('onCompletedToggle: todo id invalid');
-		}
-		setTodoCollection([...todoCollection]);
+	const onCompletedToggle = (id: string) => {
+		dispatch(toggleCompleted(id))
 	};
 
 	return (

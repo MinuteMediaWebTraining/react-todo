@@ -14,11 +14,17 @@ export const todoSlice = createSlice({
 			// doesn't actually mutate the state because it uses the Immer library,
 			// which detects changes to a "draft state" and produces a brand new
 			// immutable state based off those changes
-			// state.items.push(?);
+			state.items.push(action.payload);
 		},
+    toggleCompleted: (state, action) => {
+      const todo = state.items.find(action.payload);
+      if(todo) {
+        todo.completed = !todo.completed;
+      }
+    }
 	},
 });
 
-export const { add } = todoSlice.actions;
+export const { add, toggleCompleted } = todoSlice.actions;
 
 export default todoSlice.reducer;
