@@ -9,10 +9,10 @@ import TodoDashboard from './components/TodoDashboard';
 import TodoDetails from './components/TodoDetails';
 import { Provider } from 'react-redux';
 import store from './store';
-import { fetchTodoCollection } from './store/middleware.api';
+import { fetchTodoCollection } from './store/todo.thunk';
 
 // do on init
-store.dispatch(fetchTodoCollection());
+store.dispatch(fetchTodoCollection() as any);
 
 ReactDOM.render(
 	<React.StrictMode>

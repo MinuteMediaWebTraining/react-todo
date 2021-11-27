@@ -1,6 +1,7 @@
 import { Middleware } from '@reduxjs/toolkit';
 import { todoError, todoLoaded, todoLoading } from './todoSlice';
 
+// Since we now using Thunk - API middleware can be removed
 const TODO_ENDPOINT = '/todo.json';
 
 export const fetchTodoCollection = () => {
