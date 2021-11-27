@@ -1,13 +1,13 @@
 import { Middleware } from '@reduxjs/toolkit';
 import { todoError, todoLoaded, todoLoading } from './todoSlice';
 
-const TODO_ENDPOINT = 'todo.json'
+const TODO_ENDPOINT = '/todo.json';
 
 export const fetchTodoCollection = () => {
 	return {
-		type: 'todo/fetchTodoCollection'
-	}
-}
+		type: 'todo/fetchTodoCollection',
+	};
+};
 
 export const todoApi: Middleware = ({ dispatch }) => {
 	return (next) => async (action) => {
