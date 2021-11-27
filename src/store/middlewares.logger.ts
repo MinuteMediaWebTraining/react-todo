@@ -1,6 +1,6 @@
-import { Middleware } from "@reduxjs/toolkit";
+import { Middleware } from '@reduxjs/toolkit';
 
-export const  logger: Middleware = ({ getState }) => {
+export const logger: Middleware = ({ getState }) => {
 	return (next) => (action) => {
 		console.log('will dispatch', action);
 
@@ -11,4 +11,5 @@ export const  logger: Middleware = ({ getState }) => {
 
 		return returnValue;
 	};
-}
+};
+

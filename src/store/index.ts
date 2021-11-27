@@ -1,12 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { logger } from './middlewares';
+import { todoApi } from './middleware.api';
+import { logger } from './middlewares.logger';
 import todoReducer from './todoSlice';
 
 const store = configureStore({
   reducer: {
     todo: todoReducer,
   },
-  middleware: [logger]
+  middleware: [logger, todoApi]
 });
 
 export default store;
