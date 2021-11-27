@@ -1,5 +1,4 @@
-import { AnyAction, configureStore, ThunkAction, ThunkDispatch } from '@reduxjs/toolkit';
-import { todoApi } from './middleware.api';
+import { AnyAction, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import { thunkMiddleware } from './middleware.thunk';
 import { logger } from './middlewares.logger';
 import todoReducer from './todoSlice';
