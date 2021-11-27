@@ -8,24 +8,18 @@ import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { add, toggleCompleted } from '../store/todoSlice';
 import { fetchTodoCollection } from '../store/middleware.api';
 
-
 const TodoDashboard: React.FC = () => {
 	const [viewFilter, setViewFilter] = useState(ViewFilterMode.All);
 	const todoCollection = useAppSelector((state) => state.todo.items);
-	const dispatch = useAppDispatch()
+	const dispatch = useAppDispatch();
 
 	useEffect(() => {
 		dispatch(fetchTodoCollection());
-	// 	fetch('todo.json')
-	// 		.then((response) => response.json())
-	// 		.then((items) => {
-	// 			setTodoCollection(items);
-	// 		});
 	}, [dispatch]);
 
 	const onAdd = (value: string) => {
 		const newTodo = { id: createId(), text: value, completed: false };
-		dispatch(add(newTodo))
+		dispatch(add(newTodo));
 	};
 
 	const getFilteredTodoList = () => {
@@ -46,7 +40,7 @@ const TodoDashboard: React.FC = () => {
 	};
 
 	const onCompletedToggle = (id: string) => {
-		dispatch(toggleCompleted(id))
+		dispatch(toggleCompleted(id));
 	};
 
 	return (
