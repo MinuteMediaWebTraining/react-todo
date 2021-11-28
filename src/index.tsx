@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
@@ -9,24 +9,34 @@ import TodoDashboard from './components/TodoDashboard';
 import TodoDetails from './components/TodoDetails';
 import { Provider } from 'react-redux';
 import store from './store';
-import { fetchTodoCollection } from './store/todo.thunk';
+import { fetchTodoCollectionAsync } from './store/todoSlice';
+import { useAppDispatch } from './store/hooks';
 
-// do on init
-store.dispatch(fetchTodoCollection() as any);
+const AppWithRouting: React.FC = () => {
+	const dispatch = useAppDispatch();
+
+	useEffect(() => {
+		dispatch(fetchTodoCollectionAsync());
+	}, [dispatch]);
+
+	return (
+		<BrowserRouter>
+			<Routes>
+				<Route path="about" element={<About />} />
+				<Route path="todo" element={<App />}>
+					<Route index element={<TodoDashboard />} />
+					<Route path=":id" element={<TodoDetails />} />
+				</Route>
+				<Route path="/" element={<Navigate to="todo" />} />
+			</Routes>
+		</BrowserRouter>
+	);
+};
 
 ReactDOM.render(
 	<React.StrictMode>
 		<Provider store={store}>
-			<BrowserRouter>
-				<Routes>
-					<Route path="about" element={<About />} />
-					<Route path="todo" element={<App />}>
-						<Route index element={<TodoDashboard />} />
-						<Route path=":id" element={<TodoDetails />} />
-					</Route>
-					<Route path="/" element={<Navigate to="todo" />} />
-				</Routes>
-			</BrowserRouter>
+			<AppWithRouting />
 		</Provider>
 	</React.StrictMode>,
 	document.getElementById('root')
