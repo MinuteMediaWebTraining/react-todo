@@ -7,7 +7,7 @@ const store = configureStore({
   reducer: {
     todo: todoReducer,
   },
-  middleware: [logger, thunkMiddleware]
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger, thunkMiddleware),
 });
 
 export default store;

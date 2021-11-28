@@ -12,7 +12,7 @@ import store from './store';
 import { fetchTodoCollection } from './store/todo.thunk';
 
 // do on init
-store.dispatch(fetchTodoCollection() as any);
+store.dispatch(fetchTodoCollection());
 
 ReactDOM.render(
 	<React.StrictMode>
