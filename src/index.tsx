@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
@@ -11,8 +11,13 @@ import { Provider } from 'react-redux';
 import store from './store';
 import { fetchTodoCollectionAsync } from './store/todoSlice';
 import { useAppDispatch } from './store/hooks';
+import { ThemeContext, themes } from './theme';
 
 const AppWithRouting: React.FC = () => {
+	const [theme, setTheme] = useState(themes.dark);
+	const toggleTheme = () =>
+		theme === themes.light ? setTheme(themes.dark) : setTheme(themes.light);
+
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
@@ -20,16 +25,18 @@ const AppWithRouting: React.FC = () => {
 	}, [dispatch]);
 
 	return (
-		<BrowserRouter>
-			<Routes>
-				<Route path="about" element={<About />} />
-				<Route path="todo" element={<App />}>
-					<Route index element={<TodoDashboard />} />
-					<Route path=":id" element={<TodoDetails />} />
-				</Route>
-				<Route path="/" element={<Navigate to="todo" />} />
-			</Routes>
-		</BrowserRouter>
+		<ThemeContext.Provider value={{ theme, toggleTheme }}>
+			<BrowserRouter>
+				<Routes>
+					<Route path="about" element={<About />} />
+					<Route path="todo" element={<App />}>
+						<Route index element={<TodoDashboard />} />
+						<Route path=":id" element={<TodoDetails />} />
+					</Route>
+					<Route path="/" element={<Navigate to="todo" />} />
+				</Routes>
+			</BrowserRouter>
+		</ThemeContext.Provider>
 	);
 };
 

@@ -1,11 +1,11 @@
 import React from 'react';
 import Main from './Main';
-import NavBar from './NavBar';
+import AppBar from './AppBar';
 
 const About: React.FC = () => {
 	return (
 		<Main>
-			<NavBar />
+			<AppBar />
 			<h2>About ToDo App</h2>
 			<p>This is a ToDo App</p>
 			<p>You can load initial todo list from file and manipulate them</p>

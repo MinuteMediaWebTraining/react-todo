@@ -11,9 +11,6 @@ export const Button = styled.button<IProps>`
   color: black;
   font-weight: bold;
   background-color: ${props => props.primary ? 'lightblue' : 'lightgray'};
-  @media(min-width: 420px) {
-	  background-color: lightblue;
-  }
   &:hover {
     cursor: pointer;;
   }

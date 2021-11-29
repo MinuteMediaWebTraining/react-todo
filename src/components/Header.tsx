@@ -57,7 +57,7 @@ const Header: React.FC<IProps> = ({
 			<h1>My Todo list</h1>
 			<div css={newItemStyles}>
 				<Textbox {...newItem} />
-				<Button onClick={onAddClicked} disabled={!buttonEnabled}>
+				<Button primary onClick={onAddClicked} disabled={!buttonEnabled}>
 					Add
 				</Button>
 			</div>
